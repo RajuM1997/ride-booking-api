@@ -7,6 +7,7 @@ const router = express.Router();
 router.patch(
   "/approve/:id",
   checkAuth("DRIVER"),
+
   driverControllers.approveDriver
 );
 router.patch(

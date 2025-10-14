@@ -3,7 +3,7 @@ import AppError from "../../errorHelpers/AppError";
 import { IRide, IRideStatus } from "./ride.interface";
 import { Ride } from "./ride.model";
 import { JwtPayload } from "jsonwebtoken";
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 
 const requestRide = async (payload: IRide, decodedToken: JwtPayload) => {
   if (!decodedToken.userId) {
@@ -40,10 +40,42 @@ const cancelRide = async (rideId: string, decodedToken: JwtPayload) => {
 };
 
 const myAllRides = async (decodedToken: JwtPayload) => {
-  const rides = await Ride.find({ rider: decodedToken.userId });
+  const rides = await Ride.aggregate([
+    {
+      $match: {
+        rider: new Types.ObjectId(decodedToken.userId),
+      },
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "driver",
+        foreignField: "_id",
+        as: "driver",
+      },
+    },
+    {
+      $unwind: {
+        path: "$driver",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+    {
+      $project: {
+        pickup: 1,
+        destination: 1,
+        status: 1,
+        fare: 1,
+        "driver.name": 1,
+        "driver.phone": 1,
+      },
+    },
+  ]);
+
   if (!rides) {
     throw new AppError(httpStatus.NOT_FOUND, "No ride found");
   }
+
   return rides;
 };
 

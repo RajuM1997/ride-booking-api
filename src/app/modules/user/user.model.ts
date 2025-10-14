@@ -29,6 +29,7 @@ const driverSchema = new Schema<IDriver>(
     completedRides: {
       type: Number,
       required: true,
+      default: 0,
     },
     rideCapability: {
       type: Boolean,

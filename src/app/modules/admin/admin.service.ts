@@ -69,11 +69,13 @@ const suspendDriver = async (userId: string) => {
     { new: true, runValidators: true }
   );
 };
+
 const blockUnblockUser = async (userId: string, activeStatus: string) => {
   const existingUser = await User.findById(userId);
   if (!existingUser) {
     throw new AppError(httpStatus.NOT_FOUND, "User not found");
   }
+
   await User.findByIdAndUpdate(
     userId,
     { isActive: activeStatus },
@@ -106,11 +108,18 @@ const getAllRides = async (query: Record<string, string>) => {
   return { data, meta };
 };
 
+const getAllDrivers = async () => {
+  const drivers = User.find({ role: "DRIVER" });
+
+  return drivers;
+};
+
 export const adminService = {
-  acceptDriver,
-  removeDriverRole,
   getAllUsers,
   getAllRides,
+  getAllDrivers,
+  acceptDriver,
+  removeDriverRole,
   suspendDriver,
   blockUnblockUser,
 };

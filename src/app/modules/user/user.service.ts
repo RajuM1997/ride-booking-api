@@ -71,11 +71,6 @@ const updateUser = async (
   return newUpdatedUser;
 };
 
-const getAllUser = async () => {
-  const users = await User.find();
-  return users;
-};
-
 const getMe = async (decodedToken: JwtPayload) => {
   const user = await User.findById(decodedToken.userId);
 
@@ -90,7 +85,6 @@ const getMe = async (decodedToken: JwtPayload) => {
 
 export const userService = {
   createUserService,
-  getAllUser,
   updateUser,
   getMe,
 };

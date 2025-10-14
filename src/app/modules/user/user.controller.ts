@@ -11,11 +11,16 @@ import { JwtPayload } from "jsonwebtoken";
 const createUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const user = await userService.createUserService(req.body);
-
+    let role;
+    if (req.body.driver) {
+      role = "Driver";
+    }
     sendResponse(res, {
       success: true,
       statusCode: httpStatusCode.CREATED,
-      message: "User created successfully",
+      message: role
+        ? `Your ${role} profile created successfully. Please wait for admin response`
+        : "Your account created successfully",
       data: user,
     });
   }
@@ -23,7 +28,7 @@ const createUser = catchAsync(
 
 const updateUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const userId = req.params.userId;
+    const userId = req.params.id;
     const token = req.headers.authorization;
     const verifiedToken = verifyToken(
       token as string,
@@ -38,21 +43,8 @@ const updateUser = catchAsync(
     sendResponse(res, {
       success: true,
       statusCode: httpStatusCode.CREATED,
-      message: "User updated successfully",
+      message: "Your profile updated successfully",
       data: user,
-    });
-  }
-);
-
-const getAllUser = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const users = await userService.getAllUser();
-
-    sendResponse(res, {
-      success: true,
-      statusCode: httpStatusCode.OK,
-      message: "All users get successfully",
-      data: users,
     });
   }
 );
@@ -69,7 +61,7 @@ const getMe = catchAsync(
     sendResponse(res, {
       success: true,
       statusCode: httpStatusCode.OK,
-      message: "Profile get successfully",
+      message: "your profile successfully get",
       data: rest,
     });
   }
@@ -77,7 +69,6 @@ const getMe = catchAsync(
 
 export const userController = {
   createUser,
-  getAllUser,
   updateUser,
   getMe,
 };

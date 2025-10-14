@@ -12,7 +12,7 @@ const acceptDriver = catchAsync(
     sendResponse(res, {
       success: true,
       statusCode: httpStatus.CREATED,
-      message: `Role updated successfully`,
+      message: `New driver added successfully`,
       data: null,
     });
   }
@@ -25,7 +25,7 @@ const removeDriverRole = catchAsync(
     sendResponse(res, {
       success: true,
       statusCode: httpStatus.CREATED,
-      message: `Role updated successfully`,
+      message: `Driver role removed successfully`,
       data: null,
     });
   }
@@ -47,7 +47,8 @@ const suspendDriver = catchAsync(
 const blockUnblockUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const userId = req.params.id;
-    await adminService.blockUnblockUser(userId as string, req.body);
+    const activeStatus = req.body.isActive;
+    await adminService.blockUnblockUser(userId as string, activeStatus);
     sendResponse(res, {
       success: true,
       statusCode: httpStatus.CREATED,
@@ -89,6 +90,18 @@ const getAllRides = catchAsync(
   }
 );
 
+const getAllDrivers = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const drivers = await adminService.getAllDrivers();
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: `All rides get successfully`,
+      data: drivers,
+    });
+  }
+);
+
 export const adminController = {
   acceptDriver,
   removeDriverRole,
@@ -96,4 +109,5 @@ export const adminController = {
   getAllUsers,
   suspendDriver,
   blockUnblockUser,
+  getAllDrivers,
 };
