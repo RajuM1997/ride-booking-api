@@ -1,5 +1,5 @@
 import z from "zod";
-import { IPaymentMethod, IsActive, Role } from "./user.interface";
+import { IPaymentMethod, IsActive } from "./user.interface";
 import { DriverStatus, IsAvailability } from "../driver/driver.interface";
 
 export const createUserZodSchema = z.object({
@@ -76,7 +76,6 @@ export const updateUserZodSchema = z.object({
       "Phone number must be valid for Bangladesh. Format: +8801XXXXXXXXX or 01XXXXXXXXXX"
     )
     .optional(),
-  role: z.enum(Object.values(Role) as [string]).optional(),
   isDeleted: z
     .boolean({ message: "isDeleted must be true or false" })
     .optional(),
