@@ -43,7 +43,7 @@ const cancelRide = catchAsync(
 
     sendResponse(res, {
       success: true,
-      statusCode: httpStatusCode.CREATED,
+      statusCode: httpStatusCode.OK,
       message: "Your ride successfully cancelled",
       data: null,
     });

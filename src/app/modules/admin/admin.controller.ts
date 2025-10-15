@@ -11,7 +11,7 @@ const acceptDriver = catchAsync(
     await adminService.acceptDriver(driverId as string);
     sendResponse(res, {
       success: true,
-      statusCode: httpStatus.CREATED,
+      statusCode: httpStatus.OK,
       message: `New driver added successfully`,
       data: null,
     });
@@ -24,7 +24,7 @@ const removeDriverRole = catchAsync(
     await adminService.removeDriverRole(driverId as string);
     sendResponse(res, {
       success: true,
-      statusCode: httpStatus.CREATED,
+      statusCode: httpStatus.OK,
       message: `Driver role removed successfully`,
       data: null,
     });
@@ -37,7 +37,7 @@ const suspendDriver = catchAsync(
     await adminService.suspendDriver(driverId as string);
     sendResponse(res, {
       success: true,
-      statusCode: httpStatus.CREATED,
+      statusCode: httpStatus.OK,
       message: `Driver suspend successfully`,
       data: null,
     });
@@ -51,7 +51,7 @@ const blockUnblockUser = catchAsync(
     await adminService.blockUnblockUser(userId as string, activeStatus);
     sendResponse(res, {
       success: true,
-      statusCode: httpStatus.CREATED,
+      statusCode: httpStatus.OK,
       message: `User activity updated successfully`,
       data: null,
     });

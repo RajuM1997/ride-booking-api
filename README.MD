@@ -1,5 +1,7 @@
 # 🚗 Ride Booking System
 
+🔗 **Live API:** [https://ride-booking-api-five.vercel.app/](https://ride-booking-api-five.vercel.app/)
+
 A **role-based backend API** for a ride booking platform — built with **Node.js**, **Express**, **TypeScript**, and **Mongoose**.  
 The system enables **riders**, **drivers**, and **admins** to interact securely with custom authentication, real-time ride management, and flexible role controls.
 
@@ -20,11 +22,6 @@ src/
 ├── utils/
 ├── app.ts
 └── server.ts
-
-
-
-
-
 
 ---
 

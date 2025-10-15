@@ -24,7 +24,7 @@ const approveDriver = catchAsync(
 
     sendResponse(res, {
       success: true,
-      statusCode: httpStatus.CREATED,
+      statusCode: httpStatus.OK,
       message: "Your ride ready for you",
       data: null,
     });
@@ -48,7 +48,7 @@ const updateRideStatus = catchAsync(
     const currentStatus = req.body.status;
     sendResponse(res, {
       success: true,
-      statusCode: httpStatus.CREATED,
+      statusCode: httpStatus.OK,
       message: `Status updated successfully and the current status is ${currentStatus}`,
       data: null,
     });
@@ -71,7 +71,7 @@ const cancelRideDriver = catchAsync(
 
     sendResponse(res, {
       success: true,
-      statusCode: httpStatus.CREATED,
+      statusCode: httpStatus.OK,
       message: `Your ride successfully cancelled`,
       data: null,
     });
@@ -93,7 +93,7 @@ const updateDriverAvailability = catchAsync(
     const currentStatus = req.body.isAvailability;
     sendResponse(res, {
       success: true,
-      statusCode: httpStatus.CREATED,
+      statusCode: httpStatus.OK,
       message: `Availability updated successfully and the current Availability is ${currentStatus}`,
       data: null,
     });
